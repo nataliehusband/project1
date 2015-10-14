@@ -26,7 +26,6 @@ public class Project1
 	{
 		//calls the method that has the JFrame and all of its components in it
 		JFrameBoard(); 
-		Collections.shuffle(null); 
 	}
 	
 	private static void JFrameBoard()
@@ -121,13 +120,6 @@ public class Project1
 		//set visible
 		board.setVisible(true); //sets the JFrame so that it can be seen 	
 				
-		/*public static shuffle(List<?> list)
-		{
-			//creates array list of buttons
-			JButton[] playingCards = {picture1, picture2, picture3, picture4, picture5, picture6,
-					picture7, picture8, picture9, picture10, picture11, picture12};
-			Collections.shuffle(playingCards);
-		}*/
 	}	
 	
 }
