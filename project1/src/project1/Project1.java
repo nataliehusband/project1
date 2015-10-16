@@ -38,8 +38,11 @@ public class Project1
 	//the main of the program 
 	public static void main(String[] args)
 	{
+		JOptionPane.showMessageDialog(null, "Welcome! We are going to play a memory game."
+				+ " Select two cards. \nIf they match, they will stay faceup. If they don't, "
+				+ "they will flip back over. \n When you have found all of the matches, you have "
+				+ "beat the game!");
 		JFrameBoard(); 
-		
 	}
 	
 	//method JFrameBoard
@@ -304,6 +307,7 @@ public class Project1
 	
 	//creates the method that will check to see whether or not the buttons
 	//are the same as the last one that was clicked and the re-enables them or disables them
+	//Subin helped me with a lot of the following code (I needed help putting my logic into code)
 	private static void checkButtons()
 	{
 		disableCounter = 0; //sets the value of counter to 0 
