@@ -8,10 +8,11 @@ import java.awt.ComponentOrientation;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 //import java.util.Collections;
 //import java.util.Random; 
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 //import java.util.ArrayList; 
 //import java.awt.Container;
 //import java.io.IOException;
@@ -20,12 +21,14 @@ import javax.swing.JLabel;
 //import javax.imageio.ImageIO;
 //import javax.swing.Icon;
 //import java.util.List;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 
 public class Project1 
 {
-	static JButton[] buttons; 
+	public static int clickCount = 0;
+
+	static JButton[] buttons = new JButton[12]; 
 	
 	public void multipanel()
 	{
@@ -36,18 +39,12 @@ public class Project1
 	public static void main(String[] args)
 	{
 		JFrameBoard(); 
+		
 	}
 	
 	//method JFrameBoard
 	private static void JFrameBoard()
-	{	
-		int counter; 
-		String choice1, choice2; 
-		
-		do
-		{
-			counter = 0; 
-			
+	{		
 			//creates JFrame 
 			JFrame board = new JFrame("Grid Layout"); 
 			board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //sets the default close operation
@@ -67,6 +64,8 @@ public class Project1
 							Image newimgPic1 = imgPicture1.getScaledInstance(100, 80,  java.awt.Image.SCALE_SMOOTH);
 							picture1pic = new ImageIcon(newimgPic1);
 							picture1.setIcon(picture1pic); 
+							clickCount++;
+							jbuttonParameter(picture1, "clownFish"); 
 						}
 					});
 			
@@ -81,6 +80,9 @@ public class Project1
 							Image newimgPic1 = imgPicture1.getScaledInstance(100, 80,  java.awt.Image.SCALE_SMOOTH);
 							picture1pic = new ImageIcon(newimgPic1);
 							picture2.setIcon(picture1pic);
+							clickCount++;
+							jbuttonParameter(picture2, "clownFish"); 
+
 						}
 					}); 
 			
@@ -97,6 +99,8 @@ public class Project1
 							Image newDog = imgDogs.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH); 
 							dogs = new ImageIcon(newDog); 
 							picture3.setIcon(dogs);
+							clickCount++; 
+							jbuttonParameter(picture3, "dogs");
 						}
 					});
 			
@@ -111,6 +115,8 @@ public class Project1
 							Image newDog = imgDogs.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH); 
 							dogs = new ImageIcon(newDog); 
 							picture4.setIcon(dogs);
+							clickCount++; 
+							jbuttonParameter(picture4, "dogs");
 						}
 					});
 			
@@ -125,6 +131,8 @@ public class Project1
 							Image newImage = imgImage.getScaledInstance(100, 90 , java.awt.Image.SCALE_SMOOTH); 
 							image = new ImageIcon(newImage); 
 							picture5.setIcon(image);
+							clickCount++; 
+							jbuttonParameter(picture5, "image");
 						}
 					});
 			
@@ -139,6 +147,8 @@ public class Project1
 							Image newImage = imgImage.getScaledInstance(100, 90 , java.awt.Image.SCALE_SMOOTH); 
 							image = new ImageIcon(newImage); 
 							picture6.setIcon(image);
+							clickCount++; 
+							jbuttonParameter(picture6, "image");
 						}
 					});
 					
@@ -153,6 +163,8 @@ public class Project1
 							Image newSnow = imgSnow.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); 
 							snow = new ImageIcon(newSnow); 
 							picture7.setIcon(snow);
+							clickCount++; 
+							jbuttonParameter(picture7, "snow");
 						}
 					});
 			
@@ -167,6 +179,8 @@ public class Project1
 							Image newSnow = imgSnow.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); 
 							snow = new ImageIcon(newSnow); 
 							picture8.setIcon(snow);
+							clickCount++; 
+							jbuttonParameter(picture8, "snow");
 						}
 					});
 								
@@ -181,6 +195,8 @@ public class Project1
 							Image newSnowCat = imgSnowCat.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
 							snowCat = new ImageIcon(newSnowCat); 
 							picture9.setIcon(snowCat);
+							clickCount++; 
+							jbuttonParameter(picture9, "snowCat");
 						}
 					});
 			
@@ -195,6 +211,8 @@ public class Project1
 							Image newSnowCat = imgSnowCat.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
 							snowCat = new ImageIcon(newSnowCat); 
 							picture10.setIcon(snowCat);
+							clickCount++; 
+							jbuttonParameter(picture10, "snowCat");
 						}
 					});
 			
@@ -209,6 +227,8 @@ public class Project1
 							Image newSunset = imgSunset.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
 							sunset = new ImageIcon(newSunset); 
 							picture11.setIcon(sunset);
+							clickCount++; 
+							jbuttonParameter(picture11, "sunset");
 						}
 					});
 			
@@ -223,11 +243,13 @@ public class Project1
 							Image newSunset = imgSunset.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH);
 							sunset = new ImageIcon(newSunset); 
 							picture12.setIcon(sunset);
+							clickCount++; 
+							jbuttonParameter(picture12, "sunset");
 						}
 					});
 			
 			//places buttons in an array
-			/*buttons[0] = picture1; 
+			buttons[0] = picture1; 
 			buttons[1] = picture2; 
 			buttons[2] = picture3; 
 			buttons[3] = picture4; 
@@ -238,7 +260,7 @@ public class Project1
 			buttons[8] = picture9; 
 			buttons[9] = picture10; 
 			buttons[10] = picture11; 
-			buttons[11] = picture12;*/	
+			buttons[11] = picture12;
 					
 			//add buttons to panel boardLayout
 			boardLayout.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -261,14 +283,62 @@ public class Project1
 			//set visible
 			board.setVisible(true); //sets the JFrame so that it can be seen 
 			
-			if(counter == 1)
-			{
-				
-			}
-		
-			counter++; 
-		}while(counter<2);
-			
 	}	
+	static JButton previousButton;
+	static String previousButtonName;
+	static int disableCounter = 0;
 	
+	private static void checkButtons()
+	{
+		disableCounter = 0;
+		for(int i = 0; i < 12; i++)
+		{
+			if(!(buttons[i].isEnabled()))
+			{
+				disableCounter++;
+			}
+		}
+		
+		if(disableCounter == 12)
+		{
+			JOptionPane.showMessageDialog(null, "Yay, you won!");
+			if(JOptionPane.showConfirmDialog(null, "Do you want to play again?") == 0)
+			{
+				JFrameBoard();
+			} 
+			else
+			{
+				System.exit(0);
+			}
+		}
+	}
+	
+	private static void jbuttonParameter(JButton halo, String buttonName)
+	{
+		if(clickCount == 1)
+		{
+			previousButtonName = buttonName;
+			System.out.println(halo.getIcon());
+			previousButton = halo;
+		} 
+		else if(clickCount == 2)
+		{
+			if(buttonName.equalsIgnoreCase(previousButtonName))
+			{
+				halo.setEnabled(false);
+				previousButton.setEnabled(false);
+				clickCount = 0;
+				checkButtons();
+			}
+			else
+			{
+				previousButton.setEnabled(true);
+				previousButton.setIcon(null);
+				halo.setEnabled(true);
+				halo.setIcon(null);
+				clickCount = 0;
+
+			}
+		}	
+	}
 }
