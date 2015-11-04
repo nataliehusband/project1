@@ -1,34 +1,39 @@
+//sources
+//http://stackoverflow.com/questions/16934225/actionlistener-disabling-buttons
+//http://stackoverflow.com/questions/2077216/java-thread-currentthread-sleepx-vs-thread-sleepx
+//http://stackoverflow.com/questions/20842915/memory-gamechange-image-of-imagebutton-dynamically-for-the-second-card-without
+//http://www.java-forums.org/awt-swing/19997-help-make-memory-game.html
+//http://stackoverflow.com/questions/13949092/declaring-button-variables-as-an-array-with-a-for-loop-android
+//http://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
+
 package project1;
 
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
 import java.awt.ComponentOrientation;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-//import java.util.Collections;
-//import java.util.Random; 
-//import javax.swing.JLabel;
-//import java.util.ArrayList; 
-//import java.awt.Container;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.net.URL;
-//import javax.imageio.ImageIO;
-//import javax.swing.Icon;
-//import java.util.List;
-//import javax.swing.JOptionPane;
-
 
 public class Project1 
 {
 	public static int clickCount = 0;
-
-	static JButton[] buttons = new JButton[12]; 
+	//variables for methods
+		static String secondButton; 
+		static JButton secondButton2; 
+		static JButton previousButton;
+		static String previousButtonName;
+		static int disableCounter = 0;
+		
+		static JButton[] buttons = new JButton[12]; 
 	
 	public void multipanel()
 	{
@@ -42,7 +47,7 @@ public class Project1
 				+ " Select two cards. \nIf they match, they will stay faceup. If they don't, "
 				+ "they will flip back over. \n When you have found all of the matches, you have "
 				+ "beat the game!");
-		JFrameBoard(); 
+		JFrameBoard();
 	}
 	
 	//method JFrameBoard
@@ -54,11 +59,26 @@ public class Project1
 			board.setSize(500, 500); //sets the size of the JFrame
 			board.setLocationRelativeTo(null); //centers JFrame on screen 
 			JPanel boardLayout = new JPanel(); //creates a new JPanel
-			boardLayout.setLayout(new GridLayout(3, 4, 5, 10)); //sets the layout of the JPanel						
+			boardLayout.setLayout(new GridLayout(3, 4, 5, 10)); //sets the layout of the JPanel	
+			
+			buttons[0] = new JButton(); 
+			buttons[1] = new JButton(); 
+			buttons[2] = new JButton(); 
+			buttons[3] = new JButton(); 
+			buttons[4] = new JButton(); 
+			buttons[5] = new JButton(); 
+			buttons[6] = new JButton(); 
+			buttons[7] = new JButton();
+			buttons[8] = new JButton(); 
+			buttons[9] = new JButton(); 
+			buttons[10] = new JButton(); 
+			buttons[11] = new JButton(); 
+			
+			
+			
 					
 			//creates button 1, creates action listener and sets image
-			JButton picture1 = new JButton(); //creates button1
-			picture1.addActionListener(new ActionListener() //adds the action listener to the button
+			buttons[0].addActionListener(new ActionListener() //adds the action listener to the button
 					{
 						public void actionPerformed(ActionEvent e) //if there is an action performed on the button, it enters here
 						{
@@ -67,15 +87,14 @@ public class Project1
 							Image imgPicture1 = picture1pic.getImage(); //takes the picture and gets it for the program
 							Image newimgPic1 = imgPicture1.getScaledInstance(100, 80,  java.awt.Image.SCALE_SMOOTH); //changes the size of image
 							picture1pic = new ImageIcon(newimgPic1); //take the scaled image and creates an image icon
-							picture1.setIcon(picture1pic); //sets the icon of the button and places it inside 
+							buttons[0].setIcon(picture1pic); //sets the icon of the button and places it inside 
 							clickCount++; //adds one to the click count
-							jbuttonParameter(picture1, "clownFish"); //calls the method jbuttonParameter and sets a name for the icon
+							jbuttonParameter(buttons[0], "clownFish"); //calls the method jbuttonParameter and sets a name for the icon
 						}
 					});
 			
 			//creates button 2, creates action listener and sets image
-			JButton picture2 = new JButton(); //creates the second button 
-			picture2.addActionListener(new ActionListener() //creates an action listener for the second button
+			buttons[1].addActionListener(new ActionListener() //creates an action listener for the second button
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if an action is performed on this button
 						{	
@@ -84,18 +103,20 @@ public class Project1
 							Image imgPicture1 = picture1pic.getImage();
 							Image newimgPic1 = imgPicture1.getScaledInstance(100, 80,  java.awt.Image.SCALE_SMOOTH); //sizes the image
 							picture1pic = new ImageIcon(newimgPic1); //puts the image in an icon
-							picture2.setIcon(picture1pic); //sets the image of the button 
+							buttons[1].setIcon(picture1pic); //sets the image of the button 
 							clickCount++; //adds one to the count
-							jbuttonParameter(picture2, "clownFish"); //calls the method and names the icon
-
+							buttons[1].setEnabled(true);
+							buttons[1].setVisible(true);
+							buttons[1].repaint();
+							jbuttonParameter(buttons[1], "clownFish"); //calls the method and names the icon
 						}
-					}); 
+					});
+						
 			
 			
 			
 			//creates button 3, adds action listener and sets image
-			JButton picture3 = new JButton(); //adds the third button
-			picture3.addActionListener(new ActionListener() //adds an action listener to the third button
+			buttons[2].addActionListener(new ActionListener() //adds an action listener to the third button
 					{
 						public void actionPerformed(ActionEvent e) //tests to see when the action is performed on the button
 						{
@@ -104,15 +125,26 @@ public class Project1
 							Image imgDogs = dogs.getImage(); 
 							Image newDog = imgDogs.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							dogs = new ImageIcon(newDog); //puts the image in an icon
-							picture3.setIcon(dogs); //sets the icon of the button to the image 
+							buttons[2].setIcon(dogs); //sets the icon of the button to the image 
 							clickCount++; //adds one to the count
-							jbuttonParameter(picture3, "dogs"); //calls method and sets the name of the icon
+							/*try {Thread.sleep(1000);} 
+							catch (InterruptedException f) 
+							{
+								f.printStackTrace();
+							}*/
+							
+							jbuttonParameter(buttons[2], "dogs"); //calls method and sets the name of the icon
+							/*try {Thread.sleep(1000);} 
+							catch (InterruptedException f) 
+							{
+								f.printStackTrace();
+							}*/
+							
 						}
 					});
 			
 			//creates button 4, adds action listener and sets image
-			JButton picture4 = new JButton(); //creates button 4
-			picture4.addActionListener(new ActionListener() //adds an action listener 
+			buttons[3].addActionListener(new ActionListener() //adds an action listener 
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button is clicked
 						{
@@ -121,15 +153,14 @@ public class Project1
 							Image imgDogs = dogs.getImage(); 
 							Image newDog = imgDogs.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH); //sets the size of the image
 							dogs = new ImageIcon(newDog); //puts image in an icon
-							picture4.setIcon(dogs); //puts icon in button 
+							buttons[3].setIcon(dogs); //puts icon in button 
 							clickCount++; //adds one to the count
-							jbuttonParameter(picture4, "dogs"); //calls method and sets name of icon
+							jbuttonParameter(buttons[3], "dogs"); //calls method and sets name of icon
 						}
 					});
 			
 			//creates button 5, adds action listener and sets image
-			JButton picture5 = new JButton(); //creates 5th button 
-			picture5.addActionListener(new ActionListener() //adds an action listener 
+			buttons[4].addActionListener(new ActionListener() //adds an action listener 
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button is clicked
 						{
@@ -138,15 +169,14 @@ public class Project1
 							Image imgImage = image.getImage(); 
 							Image newImage = imgImage.getScaledInstance(100, 90 , java.awt.Image.SCALE_SMOOTH); //sets size of image
 							image = new ImageIcon(newImage);  //puts image in an icon
-							picture5.setIcon(image); //puts icon in button
+							buttons[4].setIcon(image); //puts icon in button
 							clickCount++; //adds one to the count
-							jbuttonParameter(picture5, "image"); //calls method and sets name of icon
+							jbuttonParameter(buttons[4], "image"); //calls method and sets name of icon
 						}
 					});
 			
 			//creates button 6, adds action listener and sets image
-			JButton picture6 = new JButton(); //creates the 6th button
-			picture6.addActionListener(new ActionListener() //adds action listener 
+			buttons[5].addActionListener(new ActionListener() //adds action listener 
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button gets clicked
 						{
@@ -155,15 +185,14 @@ public class Project1
 							Image imgImage = image.getImage(); 
 							Image newImage = imgImage.getScaledInstance(100, 90 , java.awt.Image.SCALE_SMOOTH); //sets size of image
 							image = new ImageIcon(newImage); //puts image in an icon
-							picture6.setIcon(image); //puts icon in button
+							buttons[5].setIcon(image); //puts icon in button
 							clickCount++; //adds one to count
-							jbuttonParameter(picture6, "image"); //calls method and sets the name of the icon
+							jbuttonParameter(buttons[5], "image"); //calls method and sets the name of the icon
 						}
 					});
 					
 			//creates button 7, adds action listener and sets image 
-			JButton picture7 = new JButton(); //creates button number 7 
-			picture7.addActionListener(new ActionListener() //adds action listener
+			buttons[6].addActionListener(new ActionListener() //adds action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button gets clicked
 						{
@@ -172,15 +201,14 @@ public class Project1
 							Image imgSnow = snow.getImage();  
 							Image newSnow = imgSnow.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							snow = new ImageIcon(newSnow);  //puts image in icon
-							picture7.setIcon(snow); //puts icon in button
+							buttons[6].setIcon(snow); //puts icon in button
 							clickCount++; //add one to count
-							jbuttonParameter(picture7, "snow"); //calls method and sets the name of the icon
+							jbuttonParameter(buttons[6], "snow"); //calls method and sets the name of the icon
 						}
 					});
 			
 			//creates button 8, adds action listener and sets image
-			JButton picture8 = new JButton(); //adds button 8 
-			picture8.addActionListener(new ActionListener() //adds action listener
+			buttons[7].addActionListener(new ActionListener() //adds action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if clicked
 						{
@@ -189,15 +217,14 @@ public class Project1
 							Image imgSnow = snow.getImage(); 
 							Image newSnow = imgSnow.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							snow = new ImageIcon(newSnow); //puts image in icon
-							picture8.setIcon(snow); //puts icon in button 
+							buttons[7].setIcon(snow); //puts icon in button 
 							clickCount++; //adds one to count
-							jbuttonParameter(picture8, "snow"); //calls method and sets name of icon
+							jbuttonParameter(buttons[7], "snow"); //calls method and sets name of icon
 						}
 					});
 								
 			//creates button 9, adds action listener and sets image
-			JButton picture9 = new JButton(); //creates the 9th button 
-			picture9.addActionListener(new ActionListener() //adds action listener
+			buttons[8].addActionListener(new ActionListener() //adds action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button gets clicked 
 						{
@@ -206,15 +233,14 @@ public class Project1
 							Image imgSnowCat = snowCat.getImage(); 
 							Image newSnowCat = imgSnowCat.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							snowCat = new ImageIcon(newSnowCat); //puts image in icon
-							picture9.setIcon(snowCat); //puts icon in button
+							buttons[8].setIcon(snowCat); //puts icon in button
 							clickCount++; //adds one to count
-							jbuttonParameter(picture9, "snowCat"); //calls method and sets the name of icon
+							jbuttonParameter(buttons[8], "snowCat"); //calls method and sets the name of icon
 						}
 					});
 			
 			//creates button 10, adds action listener and sets image
-			JButton picture10 = new JButton(); //creates button number 10
-			picture10.addActionListener(new ActionListener() //adds action listener
+			buttons[9].addActionListener(new ActionListener() //adds action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button is clicked
 						{
@@ -223,15 +249,14 @@ public class Project1
 							Image imgSnowCat = snowCat.getImage(); 
 							Image newSnowCat = imgSnowCat.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							snowCat = new ImageIcon(newSnowCat); //puts image in icon
-							picture10.setIcon(snowCat); //puts icon in button 
+							buttons[9].setIcon(snowCat); //puts icon in button 
 							clickCount++; //adds one to count
-							jbuttonParameter(picture10, "snowCat"); //calls method and sets the name of the icon
+							jbuttonParameter(buttons[9], "snowCat"); //calls method and sets the name of the icon
 						}
 					});
 			
 			//creates button 11, adds action listener and sets image
-			JButton picture11 = new JButton(); //creates button number 11
-			picture11.addActionListener(new ActionListener() //creates action listener
+			buttons[10].addActionListener(new ActionListener() //creates action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button is clicked
 						{
@@ -240,15 +265,14 @@ public class Project1
 							Image imgSunset = sunset.getImage(); 
 							Image newSunset = imgSunset.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							sunset = new ImageIcon(newSunset); //puts image in icon
-							picture11.setIcon(sunset); //puts icon in button
+							buttons[10].setIcon(sunset); //puts icon in button
 							clickCount++; //adds one to count
-							jbuttonParameter(picture11, "sunset"); //calls method and sets the name of the icon
+							jbuttonParameter(buttons[10], "sunset"); //calls method and sets the name of the icon
 						}
 					});
 			
 			//creates button 12, adds action listener and sets image
-			JButton picture12 = new JButton(); //creates button 12
-			picture12.addActionListener(new ActionListener() //adds action listener
+			buttons[11].addActionListener(new ActionListener() //adds action listener
 					{
 						public void actionPerformed(ActionEvent e) //tests to see if button is clicked
 						{
@@ -257,53 +281,45 @@ public class Project1
 							Image imgSunset = sunset.getImage(); 
 							Image newSunset = imgSunset.getScaledInstance(100, 90, java.awt.Image.SCALE_SMOOTH); //sets size of image
 							sunset = new ImageIcon(newSunset); //puts image in icon
-							picture12.setIcon(sunset); //puts icon in button
+							buttons[11].setIcon(sunset); //puts icon in button
 							clickCount++; //adds one to count
-							jbuttonParameter(picture12, "sunset"); //calls method and sets name of icon
+							jbuttonParameter(buttons[11], "sunset"); //calls method and sets name of icon
 						}
 					});
 			
-			//places buttons in an array
-			buttons[0] = picture1; 
-			buttons[1] = picture2; 
-			buttons[2] = picture3; 
-			buttons[3] = picture4; 
-			buttons[4] = picture5; 
-			buttons[5] = picture6; 
-			buttons[6] = picture7; 
-			buttons[7] = picture8; 
-			buttons[8] = picture9; 
-			buttons[9] = picture10; 
-			buttons[10] = picture11; 
-			buttons[11] = picture12;
-					
+				
 			//add buttons to panel boardLayout
 			boardLayout.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-			boardLayout.add(picture1);
-			boardLayout.add(picture2); 
-			boardLayout.add(picture3); 
-			boardLayout.add(picture4); 
-			boardLayout.add(picture5); 
-			boardLayout.add(picture6); 
-			boardLayout.add(picture7); 
-			boardLayout.add(picture8); 
-			boardLayout.add(picture9); 
-			boardLayout.add(picture10); 
-			boardLayout.add(picture11); 
-			boardLayout.add(picture12); 
-			
+			for (JButton button : buttons) 
+			{
+				boardLayout.add(button);
+		    }
+			  /*
+			boardLayout.add(buttons[0]);
+			boardLayout.add(buttons[1]); 
+			boardLayout.add(buttons[2]); 
+			boardLayout.add(buttons[3]); 
+			boardLayout.add(buttons[4]); 
+			boardLayout.add(buttons[5]); 
+			boardLayout.add(buttons[6]); 
+			boardLayout.add(buttons[7]); 
+			boardLayout.add(buttons[8]); 
+			boardLayout.add(buttons[9]); 
+			boardLayout.add(buttons[10]); 
+			boardLayout.add(buttons[11]); 
+			*/
 			//add panel to board
 			board.add(boardLayout); 
 					
 			//set visible
 			board.setVisible(true); //sets the JFrame so that it can be seen 
-			
+			shuffle(); 
 	}	
 	
 	//variables for methods
-	static JButton previousButton;
-	static String previousButtonName;
-	static int disableCounter = 0;
+	//static JButton previousButton;
+	//static String previousButtonName;
+	//static int disableCounter = 0;
 	
 	//creates the method that will check to see whether or not the buttons
 	//are the same as the last one that was clicked and the re-enables them or disables them
@@ -337,6 +353,14 @@ public class Project1
 	//method that tests to see if the buttons selected are equal to each other or not
 	private static void jbuttonParameter(JButton halo, String buttonName)
 	{
+		 try
+         {
+                Thread.sleep(1000);
+         }
+         catch (InterruptedException e)
+         {
+                e.printStackTrace();
+         }
 		if(clickCount == 1) //when only one button has been selected
 		{
 			previousButtonName = buttonName; //sets the icon name of first button selected 
@@ -344,7 +368,19 @@ public class Project1
 		} 
 		else if(clickCount == 2) //when two buttons have been selected
 		{
-			if(buttonName.equalsIgnoreCase(previousButtonName)) //if button icon names are the same
+			secondButton = buttonName; 		
+			secondButton2 = halo; 
+			if(secondButton.equalsIgnoreCase(previousButtonName)) //if buttons are the same
+			{
+				halo.setEnabled(false); //disables first button 
+				previousButton.setEnabled(false); //disables second button 
+				clickCount = 0; //resets the clickCount 
+				checkButtons(); //calls the method that will check buttons to see if all are disabled yet
+			}
+		}	
+		else if(clickCount == 3)
+		{
+			if(secondButton.equalsIgnoreCase(previousButtonName)) //if buttons are the same
 			{
 				halo.setEnabled(false); //disables first button 
 				previousButton.setEnabled(false); //disables second button 
@@ -353,21 +389,27 @@ public class Project1
 			}
 			else //if button icon names aren't the same
 			{
-				try 
-				{
-					Thread.sleep(1000);
-				} 
-				catch (InterruptedException e) 
-				{
-					e.printStackTrace();
-				}
+				
+				//System.out.println("enable previous");
+				//previousButton.setEnabled(false);
 				previousButton.setEnabled(true); //re-enables first button
 				previousButton.setIcon(null); //gets rid of image (icon) of first image 
-				halo.setEnabled(true); //re-enables second button
-				halo.setIcon(null); //gets rid of image (icon) of second image
-				clickCount = 0; //resets click count to 0 
-
+				//secondButton2.setEnabled(false); 
+				secondButton2.setEnabled(true); 
+				secondButton2.setIcon(null); 
+				//halo.setEnabled(false); 
+				//halo.setEnabled(true); //re-enables second button
+				clickCount = 1; 
+				previousButton = halo; 
+				previousButtonName = buttonName; 
 			}
-		}	
+		}
+	}	
+	
+	private static void shuffle()
+	{
+		Collections.shuffle(Arrays.asList(buttons)); 
 	}
-}
+ }
+
+
